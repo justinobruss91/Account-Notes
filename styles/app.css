@@ -148,6 +148,8 @@ body { color: var(--slds-g-color-on-surface-3); }
 .an-rich h3:first-child { margin-top: 0; }
 .an-rich ul { list-style: disc; padding-left: var(--slds-g-spacing-5); } .an-rich ol { list-style: decimal; padding-left: var(--slds-g-spacing-5); }
 .an-chip { display: inline-flex; align-items: center; padding: 0 var(--slds-g-spacing-2); border: 1px solid var(--slds-g-color-accent-1); border-radius: var(--slds-g-radius-border-pill); color: var(--slds-g-color-accent-1); font-weight: 600; font-size: var(--slds-g-font-scale-neg-1); cursor: pointer; white-space: nowrap; }
+.an-inline-link { display: inline-flex; align-items: center; gap: var(--slds-g-spacing-1); padding: 0 var(--slds-g-spacing-1); border: 0; border-radius: var(--slds-g-radius-border-1); background: var(--slds-g-color-brand-base-95); color: var(--slds-g-color-accent-1); font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; vertical-align: baseline; }
+.an-inline-link:hover { background: var(--slds-g-color-brand-base-90, var(--slds-g-color-brand-base-95)); }
 .an-chip::before { content: '📎'; margin-right: var(--slds-g-spacing-1); font-size: .85em; }
 
 /* ---------- Salesforce desktop ---------- */

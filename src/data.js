@@ -72,6 +72,15 @@
     promotions: "For states participating in the Grizz Mo - Buy any Dip Save $3 on Grizz Nic Pouch - chain produced POS should be placed within the moist space.",
   };
 
+  // Enhancement (#1): phrases in today's notes that refer to a file become tappable links
+  // to that file in Related Files. [phrase as written in the note, file id]
+  AN.LEGACY_LINKS = {
+    hot: [["capturing key highlights for Casey's", 'f1'], ['2026 NPI Rollout', 'f2'], ['APEX FILE- APPROVED Placement Camel CRAFT', 'f4']],
+    availability: [['new POGs available (labeled Sept 2026)', 'f3'], ['loaded in the FILE section', 'f3']],
+    presence: [['POG Tool', 'f6']],
+    promotions: [['chain produced POS', 'f7']],
+  };
+
   const clone = (o) => JSON.parse(JSON.stringify(o));
 
   function seed() {

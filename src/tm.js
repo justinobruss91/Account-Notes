@@ -43,6 +43,25 @@
 
   const StartVisit = ({ onClick }) => html`<button class="slds-button slds-button_brand an-pill-btn" onClick=${onClick}>Start Visit Now</button>`;
 
+  // Split plain note text into text + inline file links (first match of each phrase).
+  const linkify = (text, links = [], files, onOpen) => {
+    const hits = links
+      .map(([phrase, id]) => ({ phrase, file: files[id], at: text.indexOf(phrase) }))
+      .filter((h) => h.file && h.at >= 0)
+      .sort((a, b) => a.at - b.at);
+    const out = [];
+    let i = 0;
+    hits.forEach((h) => {
+      if (h.at < i) return; // overlapping phrase
+      out.push(text.slice(i, h.at));
+      out.push(html`<button class="an-inline-link" title=${'Open ' + h.file.name} onClick=${() => onOpen(h.file)}>
+        <${AN.DocIcon} type=${h.file.type} size="x-small" />${h.phrase}</button>`);
+      i = h.at + h.phrase.length;
+    });
+    out.push(text.slice(i));
+    return out;
+  };
+
   // ---------- Experience 1: short-term — Related files on the dashboard ----------
   AN.ShortTermDashboard = ({ onToast }) => {
     const s = AN.useStore();
@@ -62,8 +81,8 @@
           <section class="an-preview an-legacy" onClick=${(e) => e.stopPropagation()}>
             <header class="an-preview__header"><h2 class="an-preview__title slds-grow">${AN.catMeta(legacy).name}</h2>
               <button class="slds-button slds-button_icon slds-button_icon-border-filled" onClick=${() => setLegacy(null)}><${Icon} name="close" size="x-small" /></button></header>
-            <div class="an-legacy__body">${AN.LEGACY_NOTES[legacy] || 'No notes entered.'}</div>
-            <footer class="an-legacy__foot"><${Icon} name="info" size="x-small" /> Today's view: plain text only. Files it mentions live in the account's Related tab.</footer>
+            <div class="an-legacy__body">${linkify(AN.LEGACY_NOTES[legacy] || 'No notes entered.', AN.LEGACY_LINKS[legacy], s.files, setFile)}</div>
+            <footer class="an-legacy__foot"><${Icon} name="link" size="x-small" /> Enhancement: file references in the note now open the matching file from Related Files.</footer>
           </section></div>`
       : null;
 
